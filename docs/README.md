@@ -8,8 +8,9 @@ Markdown files below are the living, versioned working copy the team edits.
 
 > **Scope reminder.** Parliament Insights is a *separate product layer* that
 > consumes the artifacts produced by the *Parliament Graph Architecture* thesis
-> as a **read-only source of truth**. It never modifies the thesis's statistical
-> validation core.
+> ([fvilhalva/parliament-graph-architecture](https://github.com/fvilhalva/parliament-graph-architecture),
+> monograph mirrored at [`PFC_Felipe.pdf`](PFC_Felipe.pdf)) as a **read-only
+> source of truth**. It never modifies the thesis's statistical validation core.
 
 ## Contents
 
@@ -25,6 +26,7 @@ Markdown files below are the living, versioned working copy the team edits.
 | 08 | [Security](08-security.md) | Secrets, rate limiting, prompt-injection |
 | 09 | [Infrastructure & HPC-Readiness](09-infrastructure-hpc.md) | Containers, batch, queue-as-scheduler |
 | 10 | [Roadmap](10-roadmap.md) | V1 → V5 delivery plan |
+| 11 | [Thesis Artifacts](11-thesis-artifacts.md) | Artifact→entity mapping, `Proposition.summary_text` source, sync flow (no deploy) |
 | — | [ADR-0001: Monorepo](adr/ADR-0001-monorepo.md) | Monorepo vs. poly-repo decision |
 
 ## How this maps to the code
