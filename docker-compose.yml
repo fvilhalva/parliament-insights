@@ -1,0 +1,52 @@
+# Local topology (see docs/09-infrastructure-hpc.md). Every service is a
+# container (NFR04); compute workers are stateless (NFR03).
+# SKELETON: build contexts/Dockerfiles are added as each service is implemented.
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-parliament}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+      POSTGRES_DB: ${POSTGRES_DB:-parliament_insights}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./data/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-parliament}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  # ollama:            # optional local LLM (NFR09); uncomment to run locally
+  #   image: ollama/ollama
+  #   ports: ["11434:11434"]
+  #   volumes: [ollama:/root/.ollama]
+
+  # api:               # NestJS — added once api/Dockerfile exists
+  #   build: ./api
+  #   env_file: .env
+  #   depends_on: [db, redis]
+  #   ports: ["3000:3000"]
+
+  # agent:             # Python/LangGraph orchestration — added later
+  #   build: ./agent
+  #   env_file: .env
+  #   depends_on: [db, redis]
+
+  # worker:            # stateless batch worker (embeddings/summaries) — added later
+  #   build: ./agent
+  #   command: python -m parliament_agent.worker
+  #   env_file: .env
+  #   depends_on: [db, redis]
+
+volumes:
+  pgdata:
+  # ollama:
