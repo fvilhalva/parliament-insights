@@ -1,0 +1,2 @@
+# Read-only drop location for thesis artifacts (analysis_{year}.json, metrics
+# CSV, GEXF, SQLite). Contents are git-ignored and never modified (NFR10).
